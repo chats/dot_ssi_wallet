@@ -1,0 +1,59 @@
+name: dot_ssi_wallet
+description: "DOT Wallet"
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+    sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+    flutter:
+        sdk: flutter
+
+    cupertino_icons: ^1.0.6
+    get: ^4.6.6
+    google_fonts: ^6.1.0
+    http: ^1.2.1
+    web_socket_channel: ^2.4.4
+    material_symbols_icons: ^4.2719.1
+    qr_code_scanner: ^1.0.1
+    flutter_launcher_icons: ^0.13.1
+    intl: ^0.19.0
+    qr_flutter: ^4.1.0
+    flutter_svg: ^2.0.10+1
+    flutter_slidable: ^3.0.1
+    shared_preferences: ^2.2.2
+
+dev_dependencies:
+    flutter_test:
+        sdk: flutter
+
+    flutter_lints: ^3.0.0
+
+flutter:
+    uses-material-design: true
+
+    assets:
+        - assets/images/
+        - assets/images/dot/
+        - assets/icons/
+        - assets/icons/dot/
+
+    fonts:
+        - family: Anuphan
+          fonts:
+              - weight: 100
+                asset: assets/fonts/Anuphan-Thin.ttf
+              - weight: 200
+                asset: assets/fonts/Anuphan-ExtraLight.ttf
+              - weight: 300
+                asset: assets/fonts/Anuphan-Light.ttf
+              - weight: 400
+                asset: assets/fonts/Anuphan-Regular.ttf
+              - weight: 500
+                asset: assets/fonts/Anuphan-Medium.ttf
+              - weight: 600
+                asset: assets/fonts/Anuphan-SemiBold.ttf
+              - weight: 700
+                asset: assets/fonts/Anuphan-Bold.ttf
