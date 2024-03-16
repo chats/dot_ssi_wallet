@@ -11,14 +11,13 @@ Future<List<Connection>> getConnections() async {
 
   try {
     Map<String, dynamic> data = await APIService.get(api);
-    //Initialize connection list;
     List<Connection> connections = [];
-    //Import data object to connection list
-    data['results'].forEach((con) => connections.add(Connection.fromJson(con)));
 
-    if (kDebugMode) {
-      print(connections);
-    }
+    data['results'].forEach((e) => connections.add(Connection.fromJson(e)));
+
+    //if (kDebugMode) {
+    //  print(connections);
+    //}
 
     return connections;
   } catch (e) {
@@ -43,11 +42,11 @@ Future<Invitation> createInvitation() async {
   Invitation? inv;
   try {
     Map<String, dynamic> data = await APIService.post(api, "{}");
-    print("data = $data");
+    //print("data = $data");
     inv = Invitation.fromJson(data);
-    if (kDebugMode) {
-      print("invitation = $inv");
-    }
+    //if (kDebugMode) {
+    //  print("invitation = $inv");
+    //}
   } catch (e) {
     //throw e.toString();
     log("Got error: ${e.toString()}");
@@ -61,9 +60,9 @@ Future receiveInvitation(String invitationUrl) async {
   var uri = Uri.parse(invitationUrl);
 
   var invitation = utf8.decode(base64.decode(uri.queryParameters["c_i"]!));
-  if (kDebugMode) {
-    print('invitation=$invitation');
-  }
+  //if (kDebugMode) {
+  //  print('invitation=$invitation');
+  //}
 
   try {
     await APIService.post(api, invitation);
@@ -78,7 +77,7 @@ Future deleteConnection(String connectionId) async {
   try {
     final response = await APIService.delete(api);
     if (kDebugMode) {
-      print(response.body);
+      print(response);
     }
   } catch (e) {
     throw e.toString();

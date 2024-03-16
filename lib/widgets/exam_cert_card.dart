@@ -10,7 +10,7 @@ class ExamCertCard extends StatelessWidget {
       {super.key,
       required this.credential,
       required this.press,
-      this.width = 350});
+      this.width = 0.00});
   final double? width;
   final VerifiableCredential credential;
   final VoidCallback press;
@@ -23,13 +23,13 @@ class ExamCertCard extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('th_TH', null);
 
-    double cardHeight = 154.0;
-    double cardWidth = cardHeight * cardSizeRatio;
+    //double cardHeight = 154.0;
+    //double cardWidth = cardHeight * cardSizeRatio;
 
-    if (width! > 0.00) {
-      cardWidth = width!;
-      cardHeight = width! / cardSizeRatio;
-    }
+    //if (width! > 0.00) {
+    //  cardWidth = width!;
+    //  cardHeight = width! / cardSizeRatio;
+    //}
 
     final ExamCertificate examCert = ExamCertificate.fromJson(credential.attrs);
 
@@ -44,8 +44,9 @@ class ExamCertCard extends StatelessWidget {
         child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           //return Container(width: c,);
-          return _buildCard(context, constraints.maxWidth,
-              constraints.maxWidth / cardSizeRatio, examCert);
+          final cardWidth = width! > 0.00 ? width! : constraints.maxWidth;
+          final cardHeight = cardWidth / cardSizeRatio;
+          return _buildCard(context, cardWidth, cardHeight, examCert);
         }),
       ),
     );
@@ -58,18 +59,30 @@ class ExamCertCard extends StatelessWidget {
       width: cardWidth,
       height: cardHeight,
       padding: const EdgeInsets.all(defaultPadding / 2),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         //color: Colors.white70,
-        borderRadius: BorderRadius.all(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/dot/dot-logo-500.png'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.04),
+            BlendMode.dstATop,
+          ),
+          //colorFilter: ColorFilter.mode(
+          //  Colors.white.withOpacity(0.8),
+          //  BlendMode.dstATop,
+          //),
+        ),
+        borderRadius: const BorderRadius.all(
           Radius.circular(defaultBorderRadius),
         ),
 
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           //colors: [Color(0xFFFAFAFA), Color(0xFFF0F0F0)],
           colors: [
-            Color.fromARGB(255, 230, 88, 0),
+            Color.fromARGB(255, 224, 86, 0),
             Color.fromARGB(255, 254, 135, 61)
           ],
         ),
@@ -97,7 +110,7 @@ class ExamCertCard extends StatelessWidget {
             child: Container(),
           ),
           Padding(
-            padding: EdgeInsets.all(2.5),
+            padding: const EdgeInsets.all(2.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -108,19 +121,30 @@ class ExamCertCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("ใบรับรองผลการสอบ",
-                            style: TextStyle(color: cardTextColor)),
-                        const SizedBox(height: 4),
-                        Text('เลขที่ใบรับรอง: ${examCert.certificateNumber}',
-                            style: TextStyle(color: cardTextColor)),
-                        Text('วันที่: ${examCert.certificateType}',
-                            style: TextStyle(color: cardTextColor)),
+                            style: TextStyle(
+                                fontSize: cardWidth * 0.045,
+                                fontWeight: FontWeight.w600,
+                                color: cardTextColor)),
+                        const SizedBox(height: 8),
+                        Text('เลขที่: ${examCert.certificateNumber}',
+                            style: TextStyle(
+                                fontSize: cardWidth * 0.045,
+                                color: cardTextColor)),
+                        Text('ประเภท: ${examCert.certificateType}',
+                            style: TextStyle(
+                                fontSize: cardWidth * 0.035,
+                                color: cardTextColor)),
                         Text(
                             "${examCert.titleName} ${examCert.firstName} ${examCert.lastName}",
-                            style: TextStyle(color: cardTextColor)),
+                            style: TextStyle(
+                                fontSize: cardWidth * 0.045,
+                                color: cardTextColor)),
                         Text(
                             DateFormat('d MMM yyyy', 'th_TH')
                                 .format(DateTime.parse(examCert.createdAt)),
-                            style: TextStyle(color: cardTextColor)),
+                            style: TextStyle(
+                                fontSize: cardWidth * 0.045,
+                                color: cardTextColor)),
                       ],
                     ),
                   ),

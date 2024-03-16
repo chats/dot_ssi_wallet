@@ -5,12 +5,13 @@ import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../constants.dart';
+import '../constants/app_constants.dart';
+import '../constants/constants.dart';
 import '../models/connection_model.dart';
 import '../services/core/connection_service.dart';
 import '../services/core/proof_service.dart';
 import '../widgets/empty_result_card_widget.dart';
-import 'message_screen.dart';
+import 'messages/message_screen.dart';
 
 class ProposePresentationScreen extends StatefulWidget {
   const ProposePresentationScreen(

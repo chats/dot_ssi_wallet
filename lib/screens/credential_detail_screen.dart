@@ -1,9 +1,15 @@
+import 'package:dot_ssi_wallet/widgets/dialogs/deletion_confirm_dialog_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart';
 import '../models/verifiable_credential_model.dart';
 import '../services/core/credential_service.dart';
 import '../utils/string_utils.dart';
+import '../widgets/exam_cert_card.dart';
+import '../widgets/exam_seat_card.dart';
+import '../widgets/tourist_guide_license_card2.dart';
+import '../widgets/uknown_card_widget.dart';
 import 'propose_credential_screen.dart';
 
 class CredentialDetailScreen extends StatelessWidget {
@@ -21,16 +27,30 @@ class CredentialDetailScreen extends StatelessWidget {
             title: Text("Credential Details"),
             flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
           ),
-          //SliverToBoxAdapter(
-          //  child: Padding(
-          //    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-          //    child: TourGuideLicenseCard(
-          //      width: 320,
-          //      license: license,
-          //      press: () {},
-          //    ),
-          //  ),
-          //),
+          SliverToBoxAdapter(
+            child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                child: (switch (credential.credDefId) {
+                  examCertCredDefs => ExamCertCard(
+                      credential: credential,
+                      press: () {},
+                    ),
+                  examSeatCredDefs => ExamSeatCard(
+                      credential: credential,
+                      press: () {},
+                    ),
+                  examTestCredDefs => UnknownCard(
+                      credential: credential,
+                      press: () {},
+                    ),
+                  guideLicenseCredDefs => TouristGuideLicenseCard2(
+                      credential: credential,
+                      press: () {},
+                    ),
+                  String() => throw UnimplementedError(),
+                })),
+          ),
           _credentialDetails(credential.attrs),
           _buidActionsBar(context)
         ],
@@ -75,6 +95,20 @@ class CredentialDetailScreen extends StatelessWidget {
                       foregroundColor: Colors.white // Background color
                       ),
                   onPressed: () {
+                    if (DeletionConfirmDialog(
+                          title: 'Delete this credential?',
+                          content: 'This action cannot be undone.',
+                        ) ==
+                        true) {
+                      print('Delete');
+                      deleteCredential(credential.referent).then((value) => {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                showDeletedReferent(
+                                    context, credential.referent)),
+                            Navigator.pop(context),
+                          });
+                    }
+                    /*
                     deleteCredential(credential.referent).then(
                       (value) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -88,6 +122,7 @@ class CredentialDetailScreen extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     );
+                    */
                   },
                   child: Text("Delete"),
                 ),
@@ -114,8 +149,9 @@ class CredentialDetailScreen extends StatelessWidget {
                   //color: MyTheme.color,
                 )),
             Material(
+              color: Colors.transparent,
               child: InkWell(
-                  child: Text(
+                  child: const Text(
                     "Hide",
                     style: TextStyle(
                       fontSize: 12,
@@ -125,7 +161,6 @@ class CredentialDetailScreen extends StatelessWidget {
                   onTap: () {
                     print('[Hide] tapped');
                   }),
-              color: Colors.transparent,
             ),
           ],
         ),
@@ -180,6 +215,18 @@ class CredentialDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> deleteCredential(String referent) async {
+    await deleteCredential(referent);
+  }
+
+  SnackBar showDeletedReferent(BuildContext context, String referent) {
+    const snackBarColor = Colors.orange;
+    return SnackBar(
+      backgroundColor: snackBarColor,
+      content: Center(child: Text('Credential with ref# $referent deleted')),
     );
   }
 }

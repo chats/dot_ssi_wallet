@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+class HistoryScreenOld extends StatefulWidget {
+  const HistoryScreenOld({super.key});
   static const routeName = '/history';
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<HistoryScreenOld> createState() => _HistoryScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _HistoryScreenState extends State<HistoryScreenOld> {
   List<Map<String, String>> items = [
     {"key": "1", "title": "Connected", "subtitle": "Deparment of Tourism"},
     {
@@ -51,8 +51,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: false,
               titlePadding: const EdgeInsets.fromLTRB(20, 0, 0, 10),
-              title:
-                  Text("History List", style: theme.textTheme.headlineMedium),
+              title: Text("History", style: theme.textTheme.headlineMedium),
             ),
           ),
           //SliverList.builder(itemBuilder: itemBuilder)

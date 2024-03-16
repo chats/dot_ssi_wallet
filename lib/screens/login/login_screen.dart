@@ -6,7 +6,15 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("Login Screen"),
+      child: Column(
+        children: <Widget>[
+          Text('Login'),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Login'),
+          ),
+        ],
+      ),
     );
   }
 }

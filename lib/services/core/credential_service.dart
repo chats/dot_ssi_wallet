@@ -6,25 +6,27 @@ import '../../models/verifiable_credential_model.dart';
 import 'api_service.dart';
 import 'my_shared_preferences.dart';
 
+const credentialsDataKey = "credentials";
+const credentialsDataExpire = 0; // 2 minutes
+
 /* ------------------------
  *  Get all credentials
  --------------------------*/
 Future<List<VerifiableCredential>> getCredentials() async {
   const api = "credentials";
-  const dataKey = "credentials";
-  const dataExpire = 0; // 2 minutes
 
   final pref = MySharedPreferences();
 
   try {
     Map<String, dynamic> data = {};
 
-    final strdata = await pref.getDataIfNotExpired(dataKey);
+    final strdata = await pref.getDataIfNotExpired(credentialsDataKey);
     if (strdata != null) {
       data = json.decode(strdata);
     } else {
       data = await APIService.get(api);
-      await pref.saveData(dataKey, json.encode(data), expireIn: dataExpire);
+      await pref.saveData(credentialsDataKey, json.encode(data),
+          expireIn: credentialsDataExpire);
     }
 
     //Initialize connection list;
@@ -34,9 +36,9 @@ Future<List<VerifiableCredential>> getCredentials() async {
       (cred) => credentials.add(VerifiableCredential.fromJson(cred)),
     );
 
-    //if (kDebugMode) {
-    print(json.encode(credentials));
-    //}
+    if (kDebugMode) {
+      print(json.encode(credentials));
+    }
 
     return credentials;
   } catch (e) {
@@ -88,8 +90,11 @@ Future sendCredentialRequest(String credExId) async {
 Future deleteCredential(String credentialId) async {
   final api = "credential/$credentialId";
 
+  final pref = MySharedPreferences();
+
   try {
     APIService.delete(api);
+    pref.removeData(credentialsDataKey);
   } catch (e) {
     throw e.toString();
   }

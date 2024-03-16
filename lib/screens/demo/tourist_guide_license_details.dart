@@ -5,6 +5,7 @@ import '../../models/verifiable_credential_model.dart';
 import '../../services/core/credential_service.dart';
 import '../../utils/datetime_utils.dart';
 import '../../utils/dot_data_utils.dart';
+import '../../widgets/tourist_guide_license_card2.dart';
 import '../propose_credential_screen.dart';
 import '../../widgets/tourist_guide_license_card.dart';
 
@@ -28,10 +29,9 @@ class TouristGuideLiceneseDetailsScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-              child: TouristGuideLicenseCard(
+              child: TouristGuideLicenseCard2(
                 //width: 320,
-                license: license,
-                press: () {},
+                press: () {}, credential: credential,
               ),
             ),
           ),

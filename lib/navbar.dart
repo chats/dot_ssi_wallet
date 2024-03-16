@@ -1,13 +1,17 @@
+import 'package:dot_ssi_wallet/screens/archives/connection_screen_old.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'screens/credential_screen.dart';
 import 'screens/guide_license_screen.dart';
-import 'screens/history_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/history/history_screen.dart';
+import 'screens/archives/history_screen_old.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/home3/home3_screen.dart';
+import 'screens/home_screen_old.dart';
 import 'screens/scan_qr_code_screen.dart';
 import 'screens/scan_qr_screen.dart';
-import 'screens/settings_screen.dart';
+import 'screens/settings/settings_screen.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -21,12 +25,15 @@ class _NavbarState extends State<Navbar> {
 
   static final List<Widget> _bodyWidgets = <Widget>[
     const HomeScreen(),
+//    const HomeScreen3(),
     const CredentialScreen(),
     //const TouristGuideLicenseListScreen(),
     const ScanQrCodeScreen(),
     const HistoryScreen(),
+//    const ConnectionScreen(),
 //    const SimpleCardListScreen()
     const SettingsScreen(),
+//    const SettingsScreenOld(),
   ];
 
   void _onDestinationSelected(int index) {

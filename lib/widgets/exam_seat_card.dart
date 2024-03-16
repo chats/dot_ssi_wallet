@@ -4,8 +4,6 @@ import 'package:intl/intl.dart';
 
 import '../models/exam_seat_model.dart';
 import '../models/verifiable_credential_model.dart';
-import '../screens/propose_credential_screen.dart';
-import '../services/core/credential_service.dart';
 
 class ExamSeatCard extends StatelessWidget {
   const ExamSeatCard(
@@ -24,13 +22,13 @@ class ExamSeatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('th_TH', null);
-    double cardHeight = 154.0;
-    double cardWidth = cardHeight * cardSizeRatio;
+    //double cardHeight = 154.0;
+    //double cardWidth = cardHeight * cardSizeRatio;
 
-    if (width! > 0.00) {
-      cardWidth = width!;
-      cardHeight = width! / cardSizeRatio;
-    }
+    //if (width! > 0.00) {
+    //  cardWidth = width!;
+    //  cardHeight = width! / cardSizeRatio;
+    //}
 
     //final Map<String, dynamic> attrs = credential.attrs;
     final ExamSeat examSeat = ExamSeat.fromJson(credential.attrs);
@@ -59,12 +57,24 @@ class ExamSeatCard extends StatelessWidget {
       width: cardWidth,
       height: cardHeight,
       padding: const EdgeInsets.all(defaultPadding / 2),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: const AssetImage('assets/images/dot/dot-logo-500.png'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.white.withOpacity(0.04),
+            BlendMode.dstATop,
+          ),
+          //colorFilter: ColorFilter.mode(
+          //  Colors.white.withOpacity(0.8),
+          //  BlendMode.dstATop,
+          //),
+        ),
         //color: Colors.white70,
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(defaultBorderRadius),
         ),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           //colors: [Color(0xFFFAFAFA), Color(0xFFF0F0F0)],
@@ -97,7 +107,7 @@ class ExamSeatCard extends StatelessWidget {
             child: Container(),
           ),
           Padding(
-            padding: EdgeInsets.all(2.5),
+            padding: const EdgeInsets.all(2.5),
             child: Row(
               children: [
                 Flexible(
@@ -111,7 +121,7 @@ class ExamSeatCard extends StatelessWidget {
                           style: TextStyle(
                               fontSize: cardWidth * 0.055, color: Colors.white),
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                           examSeat.examId,
                           style: TextStyle(

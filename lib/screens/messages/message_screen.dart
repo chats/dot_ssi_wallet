@@ -1,17 +1,21 @@
 import 'dart:convert';
 
+import 'package:dot_ssi_wallet/screens/messages/message_e_exam_widget.dart';
+import 'package:dot_ssi_wallet/widgets/uknown_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import '../constants.dart';
-import '../models/guide_license_model.dart';
-import '../models/verifiable_credential_model.dart';
-import '../services/core/credential_service.dart';
-import '../widgets/exam_cert_card.dart';
-import '../widgets/exam_seat_card.dart';
-import '../widgets/tourist_guide_license_card.dart';
+import '../../constants/app_constants.dart';
+import '../../constants/constants.dart';
+import '../../models/guide_license_model.dart';
+import '../../models/verifiable_credential_model.dart';
+import '../../services/core/credential_service.dart';
+import '../../widgets/exam_cert_card.dart';
+import '../../widgets/exam_seat_card.dart';
+import '../../widgets/tourist_guide_license_card.dart';
+import '../../widgets/tourist_guide_license_card2.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key, this.scanNow = false});
@@ -30,6 +34,9 @@ class _MessageScreenState extends State<MessageScreen> {
   //final _channel = WebSocketChannel.connect(
   //  Uri.parse(Constants.agentWss),
   //);
+
+  int proposeCredentialCount = 0;
+  int proposeProofCount = 0;
 
   _addItem() {
     setState(() {
@@ -155,6 +162,17 @@ class _MessageScreenState extends State<MessageScreen> {
         child: Builder(
           builder: (context) {
             if (state == "active") {
+              /**
+               * This is special case for E-Exam
+               */
+              print("Their label: ${payload["their_label"]}");
+              if (payload["their_label"].toString().trim() == "DOT E-Exam" &&
+                  proposeCredentialCount == 0) {
+                print("---------- To send credential proposal ----------");
+                proposeCredentialCount++;
+                return eExamConnected(context, payload);
+              }
+
               return Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -197,14 +215,14 @@ class _MessageScreenState extends State<MessageScreen> {
         if (state == "offer_received") {
           return _buildTile(
             const Text("Accepted credential offer"),
-            Column(
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [Text("Offering is accept automatically.")],
             ),
             color: color,
           );
         } else if (state == "credential_acked") {
-          final creddefId = payload["credential_definition_id"];
+          //final creddefId = payload["credential_definition_id"];
           //Future<VerifiableCredential> credential = getCredentialById(payload["credential_id"]);
           return _buildTile(
             const Text("Credential issued"),
@@ -320,10 +338,11 @@ class _MessageScreenState extends State<MessageScreen> {
                 return ExamSeatCard(credential: credential, press: () {});
               case examCertCredDefs:
                 return ExamCertCard(credential: credential, press: () {});
+              case examTestCredDefs:
+                return UnknownCard(credential: credential, press: () {});
               case guideLicenseCredDefs:
-                return TouristGuideLicenseCard(
-                    license: GuideLicense.fromJson(credential.attrs),
-                    press: () {});
+                return TouristGuideLicenseCard2(
+                    press: () {}, credential: credential);
               default:
                 return const SizedBox.shrink();
             }

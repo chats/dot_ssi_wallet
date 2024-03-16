@@ -3,7 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import '../../constants.dart';
+import '../../constants/app_constants.dart';
+import '../../constants/constants.dart';
 
 class APIService {
   static const String _baseUrl = agentUrl;
@@ -18,7 +19,7 @@ class APIService {
       {Map<String, String>? optHeaders = const {}}) async {
     final url = '$_baseUrl/$api';
     final headers = {..._headers, ...optHeaders!};
-    print('---- url = $url');
+    //print('---- url = $url');
 
     final response = await http.get(Uri.parse(url), headers: headers);
 
@@ -37,14 +38,14 @@ class APIService {
       {Map<String, String>? optHeaders = const {}}) async {
     final url = '$_baseUrl/$api';
     final headers = {..._headers, ...optHeaders!};
-    print('headers = $headers');
+    //print('headers = $headers');
     final response = await http.post(Uri.parse(url),
         body: body, headers: headers, encoding: Encoding.getByName(_encoding));
 
-    print(response.body);
-    if (kDebugMode) {
-      print(response);
-    }
+    //print(response.body);
+    //if (kDebugMode) {
+    //  print(response);
+    //}
 
     if (response.statusCode == 200) {
       final data = utf8.decode(response.bodyBytes);
@@ -75,18 +76,18 @@ class APIService {
       {Map<String, String>? optHeaders = const {}}) async {
     final url = '$_baseUrl/$api';
 
-    print("------------- url = $url");
+    //print("------------- url = $url");
     final headers = {..._headers, ...optHeaders!};
     //final response = await http.delete(Uri.parse(url),
     //    headers: headers, encoding: Encoding.getByName(_encoding));
-    final response = await http.delete(Uri.parse(url));
+    final response = await http.delete(Uri.parse(url), headers: headers);
 
-    print(
-        "---------------- response code = ${response.statusCode} --------------");
-    print("---------------- response body = ${response.body} --------------");
+    //print(
+    //    "---------------- response code = ${response.statusCode} --------------");
+    //print("---------------- response body = ${response.body} --------------");
 
     if (response.statusCode == 200) {
-      print("---------------- DELETED --------------");
+      //print("---------------- DELETED --------------");
       final data = utf8.decode(response.bodyBytes);
       return json.decode(data);
     } else {

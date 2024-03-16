@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../services/core/connection_service.dart';
-import 'message_screen.dart';
+import 'messages/message_screen.dart';
 
 class ScanQrCodeScreen extends StatefulWidget {
   const ScanQrCodeScreen({super.key});
@@ -135,6 +135,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    //final colorScheme = Theme.of(context).colorScheme;
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(

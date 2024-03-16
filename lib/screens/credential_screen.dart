@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../constants.dart';
-import '../models/exam_seat_model.dart';
+import '../constants/app_constants.dart';
+import '../constants/constants.dart';
 import '../models/guide_license_model.dart';
 import '../models/verifiable_credential_model.dart';
 import '../services/core/credential_service.dart';
-import '../widgets/credential_item_widget.dart';
 import '../widgets/empty_result_card_widget.dart';
 import '../widgets/exam_cert_card.dart';
 import '../widgets/exam_seat_card.dart';
 import '../widgets/tourist_guide_license_card.dart';
+import '../widgets/tourist_guide_license_card2.dart';
+import '../widgets/uknown_card_widget.dart';
 import 'credential_detail_screen.dart';
 import 'demo/tourist_guide_license_details.dart';
 
@@ -105,8 +105,8 @@ class _CredentialScreenState extends State<CredentialScreen> {
                       final attrs = GuideLicense.fromJson(js["attrs"]);
                       return Padding(
                         padding: const EdgeInsets.all(16),
-                        child: TouristGuideLicenseCard(
-                          license: attrs,
+                        child: TouristGuideLicenseCard2(
+                          credential: credentials[index],
                           press: () {
                             Get.to(
                               () => TouristGuideLiceneseDetailsScreen(
@@ -115,24 +115,22 @@ class _CredentialScreenState extends State<CredentialScreen> {
                           },
                         ),
                       );
-                  }
+                    default:
+                      return Padding(
+                        padding: const EdgeInsets.all(16),
+                        //child: Text("Unknown Card"),
 
-                  return Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Container(
-                      child: Text("Test"),
-                    ),
-                    /*
-                      child: TourGuideLicenseCard(
+                        child: UnknownCard(
+                          credential: credentials[index],
                           press: () {
                             Get.to(
-                              () => TouristGuideLiceneseDetailsScreen(
+                              () => CredentialDetailScreen(
                                   credential: credentials[index]),
                             );
                           },
-                          license: license),
-                          */
-                  );
+                        ),
+                      );
+                  }
                 }),
               );
             }
