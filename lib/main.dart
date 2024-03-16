@@ -1,3 +1,4 @@
+import 'package:dot_ssi_wallet/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +38,8 @@ class MyApp extends StatelessWidget {
               darkTheme: Themes.dark,
               themeMode: controller.isDark ? ThemeMode.dark : ThemeMode.light,
               home: const Navbar(),
+              initialRoute: '/',
+              routes: appRoutes,
             ));
     /*
     return GetMaterialApp(

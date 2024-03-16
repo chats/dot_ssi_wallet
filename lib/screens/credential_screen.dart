@@ -12,7 +12,7 @@ import '../widgets/exam_seat_card.dart';
 import '../widgets/tourist_guide_license_card.dart';
 import '../widgets/tourist_guide_license_card2.dart';
 import '../widgets/uknown_card_widget.dart';
-import 'credential_detail_screen.dart';
+import 'credential_details_screen.dart';
 import 'demo/tourist_guide_license_details.dart';
 
 class CredentialScreen extends StatefulWidget {
@@ -80,7 +80,7 @@ class _CredentialScreenState extends State<CredentialScreen> {
                           credential: credentials[index],
                           press: () {
                             Get.to(
-                              () => CredentialDetailScreen(
+                              () => CredentialDetailsScreen(
                                   credential: credentials[index]),
                             );
                           },
@@ -94,7 +94,7 @@ class _CredentialScreenState extends State<CredentialScreen> {
                           credential: credentials[index],
                           press: () {
                             Get.to(
-                              () => CredentialDetailScreen(
+                              () => CredentialDetailsScreen(
                                   credential: credentials[index]),
                             );
                           },
@@ -124,7 +124,7 @@ class _CredentialScreenState extends State<CredentialScreen> {
                           credential: credentials[index],
                           press: () {
                             Get.to(
-                              () => CredentialDetailScreen(
+                              () => CredentialDetailsScreen(
                                   credential: credentials[index]),
                             );
                           },

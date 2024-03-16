@@ -12,8 +12,8 @@ import '../widgets/tourist_guide_license_card2.dart';
 import '../widgets/uknown_card_widget.dart';
 import 'propose_credential_screen.dart';
 
-class CredentialDetailScreen extends StatelessWidget {
-  const CredentialDetailScreen({super.key, required this.credential});
+class CredentialDetailsScreen extends StatelessWidget {
+  const CredentialDetailsScreen({super.key, required this.credential});
 
   final VerifiableCredential credential;
 

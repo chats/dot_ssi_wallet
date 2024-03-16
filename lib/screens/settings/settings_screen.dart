@@ -2,6 +2,8 @@ import 'package:dot_ssi_wallet/screens/settings/settings_section_general.dart';
 import 'package:dot_ssi_wallet/screens/settings/settings_section_security.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 
 import 'settings_section_misc.dart';
 
@@ -41,7 +43,12 @@ class SettingsScreen extends StatelessWidget {
                     maxRadius: 30,
                     backgroundImage: AssetImage("assets/images/person-M.png"),
                   ),
-                  trailing: Icon(Icons.edit),
+                  trailing: IconButton(
+                    icon: Icon(Symbols.edit),
+                    onPressed: () {
+                      Get.toNamed("/settings/profile");
+                    },
+                  ),
                 ),
               ),
               sectionSpacer(),
