@@ -1,4 +1,3 @@
-import 'package:dot_ssi_wallet/widgets/dialogs/deletion_confirm_dialog_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class CredentialDetailsScreen extends StatelessWidget {
           SliverAppBar(
             pinned: true,
             title: Text("Credential Details"),
-            flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
+            //flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -40,15 +39,18 @@ class CredentialDetailsScreen extends StatelessWidget {
                       credential: credential,
                       press: () {},
                     ),
-                  examTestCredDefs => UnknownCard(
-                      credential: credential,
-                      press: () {},
-                    ),
+                  //examTestCredDefs => UnknownCard(
+                  //    attrs: credential.attrs,
+                  //    press: () {},
+                  //  ),
                   guideLicenseCredDefs => TouristGuideLicenseCard2(
                       credential: credential,
                       press: () {},
                     ),
-                  String() => throw UnimplementedError(),
+                  String() => UnknownCard(
+                      attrs: credential.attrs,
+                      press: () {},
+                    ),
                 })),
           ),
           _credentialDetails(credential.attrs),
@@ -95,20 +97,28 @@ class CredentialDetailsScreen extends StatelessWidget {
                       foregroundColor: Colors.white // Background color
                       ),
                   onPressed: () {
-                    if (DeletionConfirmDialog(
-                          title: 'Delete this credential?',
-                          content: 'This action cannot be undone.',
-                        ) ==
-                        true) {
-                      print('Delete');
-                      deleteCredential(credential.referent).then((value) => {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                showDeletedReferent(
-                                    context, credential.referent)),
-                            Navigator.pop(context),
-                          });
-                    }
                     /*
+                    bool confirmed = await confirmDeletion(context);
+                    print('val=$confirmed');
+                    //                  confirmDeletion(context).then((value) {
+                    //                    print('value=$value');
+                    if (confirmed == true) {
+                      print('to delete ${credential.referent}');
+                      await deleteCredential(credential.referent);
+                      /*
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.orange,
+                          content: Center(
+                              child: Text(
+                                  'Credential with ref# ${credential.referent}! deleted')),
+                        ),
+                      );*/
+                    }
+                    Navigator.pop(context);
+
+                    print('Delete');
+                    */
                     deleteCredential(credential.referent).then(
                       (value) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -122,7 +132,6 @@ class CredentialDetailsScreen extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     );
-                    */
                   },
                   child: Text("Delete"),
                 ),

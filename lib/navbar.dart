@@ -1,17 +1,11 @@
-import 'package:dot_ssi_wallet/screens/archives/connection_screen_old.dart';
 import 'package:flutter/material.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 
-import 'screens/credential_screen.dart';
-import 'screens/guide_license_screen.dart';
-import 'screens/history/history_screen.dart';
-import 'screens/archives/history_screen_old.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/home3/home3_screen.dart';
-import 'screens/home_screen_old.dart';
+import 'features/credentials/credential_screen.dart';
+import 'features/history/history_screen.dart';
+import 'features/home/home_screen.dart';
 import 'screens/scan_qr_code_screen.dart';
-import 'screens/scan_qr_screen.dart';
-import 'screens/settings/settings_screen.dart';
+import 'features/settings/screens/settings_screen.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
@@ -93,7 +87,7 @@ class _NavbarState extends State<Navbar> {
           ),
           NavigationDestination(
             selectedIcon:
-                Icon(Icons.settings, color: Theme.of(context).primaryColor),
+                Icon(Symbols.settings, color: Theme.of(context).primaryColor),
             icon: const Icon(
               Symbols.settings,
             ),

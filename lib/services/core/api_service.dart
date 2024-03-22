@@ -10,8 +10,8 @@ class APIService {
   static const String _baseUrl = agentUrl;
   static const _headers = {
     "content-type": "application/json; charset=UTF-8",
-    "x-api-key": apiKey,
-    "apikey": apiKey
+    "x-api-key": agentKey,
+    "apikey": agentKey
   };
   static const _encoding = "utf-8";
 

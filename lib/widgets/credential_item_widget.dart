@@ -19,7 +19,7 @@ class CredentialItem extends StatelessWidget {
           SliverAppBar(
             pinned: true,
             title: Text("Credential Details"),
-            flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
+            //  flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
           ),
           // ******************************************
           // *** This will show physical card image ***

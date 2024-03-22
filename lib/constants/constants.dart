@@ -1,6 +1,6 @@
 const String agentUrl = "https://ssi.dot.go.th/holder";
 const String agentWss = "wss://ssi.dot.go.th/holder/ws";
-const String apiKey = "ntpSOGi5eaBFeszxOtNsuAMpvhntkKjz";
+const String agentKey = "ntpSOGi5eaBFeszxOtNsuAMpvhntkKjz";
 
 const String examSeatCredDefs = "8dA47QhbtBa1bBA8XrAum2:3:CL:30:examseat2";
 const String examCertCredDefs = "8dA47QhbtBa1bBA8XrAum2:3:CL:28:examcert1";

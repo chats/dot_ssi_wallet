@@ -24,7 +24,7 @@ class TouristGuideLiceneseDetailsScreen extends StatelessWidget {
           SliverAppBar(
             pinned: true,
             title: Text("Credential Details"),
-            flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
+            //flexibleSpace: FlexibleSpaceBar(title: Text("xxx")),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -78,7 +78,26 @@ class TouristGuideLiceneseDetailsScreen extends StatelessWidget {
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white // Background color
                       ),
-                  onPressed: () {
+                  onPressed: () async {
+                    bool confirmed = await confirmDeletion(context);
+                    print('val=$confirmed');
+                    //                  confirmDeletion(context).then((value) {
+                    //                    print('value=$value');
+                    if (confirmed == true) {
+                      print('to delete ${credential.referent}');
+                      await deleteCredential(credential.referent);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.orange,
+                          content: Center(
+                              child: Text(
+                                  'Credential with ref# ${credential.referent}! deleted')),
+                        ),
+                      );
+                    }
+                    Navigator.pop(context);
+
+                    /*
                     deleteCredential(credential.referent).then(
                       (value) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -92,6 +111,7 @@ class TouristGuideLiceneseDetailsScreen extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     );
+                    */
                   },
                   child: Text("Delete"),
                 ),
@@ -185,6 +205,34 @@ class TouristGuideLiceneseDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future confirmDeletion(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Delete credential?'),
+          content: const Text(
+              'This action cannot be undone. If you delete this credential, it will be permanently lost.'),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Delete'),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  foregroundColor:
+                      Theme.of(context).colorScheme.onError // Background color
+                  ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -11,7 +11,7 @@ import '../models/connection_model.dart';
 import '../services/core/connection_service.dart';
 import '../services/core/proof_service.dart';
 import '../widgets/empty_result_card_widget.dart';
-import 'messages/message_screen.dart';
+import 'sockets/socket_event_screen.dart';
 
 class ProposePresentationScreen extends StatefulWidget {
   const ProposePresentationScreen(
@@ -45,7 +45,7 @@ class _ProposePresentationScreenState extends State<ProposePresentationScreen> {
                     connectionId: connectionId,
                     credDefId: widget.credDefId,
                     attributes: widget.attributes)
-                .then((value) => Get.off(() => MessageScreen()));
+                .then((value) => Get.off(() => SocketEventScreen()));
             //.then((value) => Get.to(() => MessageScreen()));
 //            Get.back();
           }

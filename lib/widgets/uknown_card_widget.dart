@@ -7,13 +7,15 @@ import '../models/exam_test_model.dart';
 import '../models/verifiable_credential_model.dart';
 
 class UnknownCard extends StatelessWidget {
-  const UnknownCard(
-      {super.key,
-      required this.credential,
-      required this.press,
-      this.width = 350});
+  const UnknownCard({
+    super.key,
+    required this.press,
+    this.width = 350,
+    required this.attrs,
+  });
   final double? width;
-  final VerifiableCredential credential;
+  //final VerifiableCredential credential;
+  final Map<String, dynamic> attrs;
   final VoidCallback press;
 
   static const double cardSizeRatio = 1.58577250834;
@@ -32,7 +34,7 @@ class UnknownCard extends StatelessWidget {
     //}
 
     //final Map<String, dynamic> attrs = credential.attrs;
-    final ExamTest examTest = ExamTest.fromJson(credential.attrs);
+    //final ExamTest examTest = ExamTest.fromJson(credential.attrs);
 
     return GestureDetector(
       onTap: press,
@@ -48,14 +50,14 @@ class UnknownCard extends StatelessWidget {
           final cardWidth = width! > 0.00 ? width! : constraints.maxWidth;
           final cardHeight = cardWidth / cardSizeRatio;
 
-          return _buildCard(context, cardWidth, cardHeight, examTest);
+          return _buildCard(context, cardWidth, cardHeight, attrs);
         }),
       ),
     );
   }
 
   Widget _buildCard(BuildContext context, double cardWidth, double cardHeight,
-      ExamTest examTest) {
+      dynamic attrs) {
     return Container(
       width: cardWidth,
       height: cardHeight,
@@ -121,55 +123,13 @@ class UnknownCard extends StatelessWidget {
                     //child:
                     //    _buildUnkownProperty(context, credential.attrs))),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          "บัตรผู้เข้าสอบ",
-                          style: TextStyle(
-                              fontSize: cardWidth * 0.05, color: Colors.white),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          examTest.nameTh,
-                          style: TextStyle(
-                              fontSize: cardWidth * 0.045, color: Colors.white),
-                        ),
-                        Text(
-                          examTest.examTitle.substring(0, 50) + '...',
-                          style: TextStyle(
-                              fontSize: cardWidth * 0.035, color: Colors.white),
-                        ),
-                        //Text(
-                        //  examTest.examinerId,
-                        //  style: TextStyle(
-                        //      fontSize: cardWidth * 0.055,
-                        //      color: Colors.white,
-                        //      fontWeight: FontWeight.bold),
-                        //),
-                        Text(
-                          DateFormat.yMMMd('th').format(DateTime.parse(
-                                  examTest.generalStartExamDate!)) +
-                              ' ' +
-                              DateFormat.jm('th').format(DateTime.parse(
-                                  examTest.generalStartExamDate!)) +
-                              ' - ' +
-                              DateFormat.jm('th').format(
-                                  DateTime.parse(examTest.generalEndExamDate!)),
-                          style: TextStyle(
-                              fontSize: cardWidth * 0.035, color: Colors.white),
-                        ),
-
-                        //Text(
-                        //  examTest.location,
-                        //  style: TextStyle(
-                        //      fontSize: cardWidth * 0.035, color: Colors.white),
-                        //),
-                        SizedBox(height: 12),
-                        Text(
-                          '[ รายละเอียดเพิ่มเติม ]',
-                          style: TextStyle(
-                              fontSize: cardWidth * 0.035, color: Colors.white),
-                        ),
+                        Text("Unknown Credential",
+                            style: Theme.of(context).textTheme.titleMedium),
+                        //Text("Unknown Credential",
+                        //    style: Theme.of(context).textTheme.titleMedium),
                       ],
                     ),
                   ),

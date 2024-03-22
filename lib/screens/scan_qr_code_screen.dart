@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../services/core/connection_service.dart';
-import 'messages/message_screen.dart';
+import 'sockets/socket_event_screen.dart';
 
 class ScanQrCodeScreen extends StatefulWidget {
   const ScanQrCodeScreen({super.key});
@@ -86,7 +86,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                                         receiveInvitation(value)
                                             .then((value) => {setState(() {})});
                                         await controller?.resumeCamera();
-                                        Get.to(MessageScreen())!
+                                        Get.to(SocketEventScreen())!
                                             .then((value) => {});
                                       }
                                     },

@@ -134,7 +134,7 @@ class TouristGuideLicenseCard2 extends StatelessWidget {
                   height: cardHeight * 0.62,
                   child: Image(
                       image: AssetImage(
-                          "assets/images/person-${license.gender}.png"),
+                          "assets/images/person-${license.gender.substring(0, 1)}.png"),
                       color: Colors.white.withOpacity(0.7),
                       colorBlendMode: BlendMode.modulate),
                 ),
